@@ -1,0 +1,16 @@
+*{
+    padding: 0;
+    margin:0;
+}
+
+.character{
+    background-color: brown;
+    position: absolute;
+}
+
+
+#board{
+    background-color: aqua;
+    height: 100vh;   /* taKES A % of the screen size */
+    position: relative;
+}
