@@ -17,6 +17,8 @@ class Game {
     this.drawElement(this.character);
   }
 
+  
+
   playerMove(dir) {
     if (dir === "up" && this.character.heightPos < 85) {
       this.character.moveUp();
