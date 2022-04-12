@@ -9,8 +9,6 @@ class Game {
     this.domEl = null;
     this.meteorArr = [];
     this.meteorCounter = 0;
-    // this.create = create;
-    // this.draw = draw;
   }
 
   start() {
@@ -55,7 +53,7 @@ class Game {
   }
 
   //GAME LOGICS
-
+  //create elements
   createElement(className) {
     const board = document.getElementById("board");
     const newEl = document.createElement("div");
@@ -64,7 +62,7 @@ class Game {
     return newEl;
   }
 
-  //create elements
+  //draw elements
   drawElement(element) {
     element.domEl.style.left = element.widthPos + "%";
     element.domEl.style.bottom = element.heightPos + "%";
@@ -105,10 +103,23 @@ class Character {
 
 class Meteor {
   constructor() {
-    //this.height = 20 ;
-    //this.width = 20;
+    this.height = 20 ;
+    this.width = 20;
+    this.widthPos = 90;
+    this.heightPos = Math.floor(Math.random() * 95);
+    this.domEl = null;
+  }
+
+  moveLeft(){
+      this.widthPos--;
   }
 }
+
+// class Bonus{
+//     constructor(){
+
+//     }
+// }
 
 const gameOn = new Game();
 gameOn.start();
@@ -129,3 +140,4 @@ document.addEventListener("keydown", function (event) {
     gameOn.playerMove("up");
   }
 });
+
