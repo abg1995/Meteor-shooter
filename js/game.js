@@ -15,6 +15,26 @@ class Game {
     this.character = new Character();
     this.character.domEl = this.createElement("character");
     this.drawElement(this.character);
+
+       
+    //meteor creation and draw
+
+    let intervalId = setInterval(() => {
+      if (this.meteorCounter === 30){
+        this.meteor = new Meteor();
+        this.meteor.domEl = this.createElement("meteor");
+        this.drawElement(this.meteor);
+        this.meteorArr.push(this.meteor);
+        this.meteorCounter = Math.floor(Math.random() * 30);
+    }
+    this.meteorArr.forEach((element) => {
+      element.moveLeft();
+      this.drawElement(element);
+      this.detectCollision(element);
+    });
+    this.meteorCounter++;}
+    ,60);
+  
   }
 
   
@@ -36,17 +56,18 @@ class Game {
     this.drawElement(this.character);
   }
 
-  collision() {
-    if (
-      this.character.widthPos < meteor.widthPos + meteor.width &&
-      this.character.widthPos + this.character.width > meteor.widthPos &&
-      this.character.heightPos < meteor.heightPos + meteor.height &&
-      this.character.height + this.character.heightPos > meteor.heightPos
-    ) {
-      this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
-      meteor.domEl.remove();
-      this.gameOver();
-    }
+  detectCollision(meteor){
+    
+    if(this.character.widthPos < meteor.widthPos + meteor.width && this.character.widthPos 
+      + this.character.width > meteor.widthPos && this.character.heightPos < meteor.heightPos
+      + meteor.height && this.character.height + this.character.heightPos > meteor.heightPos)
+      {
+         this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
+        meteor.domEl.remove();
+        console.log(this.character);
+      console.log(meteor)
+       this.gameOver();
+      }
   }
 
   gameOver() {
@@ -66,10 +87,10 @@ class Game {
 
   //draw elements
   drawElement(element) {
-    element.domEl.style.left = element.widthPos + "%";
-    element.domEl.style.bottom = element.heightPos + "%";
-    element.domEl.style.width = element.width + "px";
-    element.domEl.style.height = element.height + "px";
+    element.domEl.style.left = element.widthPos + "vw";
+    element.domEl.style.bottom = element.heightPos + "vh";
+    element.domEl.style.width = element.width + "vw";
+    element.domEl.style.height = element.height + "vh";
   }
 }
 
@@ -77,12 +98,12 @@ class Character {
   constructor() {
     this.heightPos = 50;
     this.widthPos = 0;
-    this.height = 110;
-    this.width = 107;
+    this.height = 10;
+    this.width = 10;
     this.domEl = null;
   }
   moveUp() {
-    if (this.heightPos < 90) {
+    if (this.heightPos < 98) {
       this.heightPos += 4;
     }
   }
@@ -105,16 +126,17 @@ class Character {
 
 class Meteor {
   constructor() {
-    this.height = 20 ;
-    this.width = 20;
-    this.widthPos = 90;
+    this.height = 10 ;
+    this.width = 10;
+    this.widthPos = 100;
     this.heightPos = Math.floor(Math.random() * 95);
-    this.domEl = null;
+    this.domEl = null;   // 
   }
 
   moveLeft(){
       this.widthPos--;
   }
+  
 }
 
 // class Bonus{
