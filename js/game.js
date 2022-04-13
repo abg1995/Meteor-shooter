@@ -38,28 +38,8 @@ class Game {
     });
     this.meteorCounter++;}
     ,60);
-      //shooting creation and drawing 
 
-
-    let shootInterId = setInterval(() => {
-      if(this.bulletCounter === 30){
-      this.bullet = new Bullet();
-      this.bullet.domEl = this.createElement("bullet");
-      this.drawElement(this.bullet);
-      this.bulletArr.push(this.bullet);
-      this.bulletCounter = Math.floor(Math.random() * 30);
-      }
-      this.bulletArr.forEach((laser) => {
-        laser.moveRight();
-        this.drawElement(laser);
-        this.deleteLaser(laser);
-        this.playerShoot(laser);
-        // this.detectCollision(laser);
-
-      });
-      this.bulletCounter++;}
-      ,50);
-
+    
   
   }
 
@@ -68,26 +48,22 @@ class Game {
   playerMove(dir) {
     if (dir === "up" && this.character.heightPos < 85) {
       this.character.moveUp();
-      console.log("moving up");
     } else if (dir === "down" && this.character.heightPos > 0) {
       this.character.moveDown();
-      console.log("moving down");
     } else if (dir === "left" && this.character.widthPos > 0) {
       this.character.moveLeft();
-      console.log("moving left");
     } else if (dir === "right" && this.character.widthPos < 90) {
       this.character.moveRight();
-      console.log("moving right");
     } 
     this.drawElement(this.character);
   }
 
-  playerShoot(laser){
-    if (laser === "shoot" && this.character === true){
-      this.character.playerShoot();
-      console.log("shooting");
-    }
-  }
+  // playerShoot(laser){
+  //   if (laser === "shoot" && this.character === true){
+  //     this.character.playerShoot();
+  //     console.log("shooting");
+  //   }
+  // }
 
   detectCollision(meteor){
     
@@ -136,8 +112,25 @@ class Game {
     location.reload();
   }
 
-  // shootingCollision(){
+   //shooting creation and drawing
 
+  makeBullets(){
+    const bullet = new Bullet();
+    this.bulletArr.push(bullet);
+      bullet.domEl = this.createElement("bullet");
+      this.drawElement(bullet);
+      console.log("makeBullets")
+      // bullet.playerShoot();
+      // this.drawElement(this.domEl);
+
+      this.bulletArr.forEach((laser) => {
+        laser.moveRight();
+        this.drawElement(laser);
+        this.deleteLaser(laser);
+      });
+    }
+    
+  // shootingCollision(){
   // }
 
   //GAME LOGICS
@@ -158,6 +151,8 @@ class Game {
     element.domEl.style.width = element.width + "vw";
     element.domEl.style.height = element.height + "vh";
   }
+ 
+ 
 }
 
 class Character {
@@ -212,29 +207,29 @@ class Bullet{
     this.widthPos = 0;
     this.heightPos = 50;
     this.domEl = null;
-    //this.shoot = false;
-    //this.bullets =[];
+    
   }
-
     moveRight(){
       this.widthPos++;
+    }  
+
+    playerShoot(){
+    if(spacePressed === true){
+       }
+     
     }
-    playerShoot(laser){
-    if(spacePressed = true)
-    this.drawElement(laser);
-    laser.moveRight();
   }
 
-}
 
 // class Bonus{
-//     constructor(){
-
+//  constructor(){
 //     }
 // }
 
 const gameOn = new Game();
 gameOn.start();
+
+
 
 //movements player
 document.addEventListener("keydown", function (event) {
@@ -252,7 +247,7 @@ document.addEventListener("keydown", function (event) {
     gameOn.playerMove("up");
   } else if (event.keyCode == 32){
     spacePressed = true;
-    gameOn.playerShoot("shoot");
+    gameOn.makeBullets();
     console.log("shooting")
   }
 });
