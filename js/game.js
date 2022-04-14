@@ -42,6 +42,7 @@ class Game {
         this.deleteLaser(laser)});
     }, 60);
   
+    
   }
 
   playerMove(dir) {
@@ -90,10 +91,11 @@ class Game {
       meteor.domEl.remove();
       let point = document.getElementById("scoring");
       point.innerHTML++;
-      if(point === 50){
+      if (this.point === 50){
         alert("NICE, YOU CAN GO TO THE NEXT LEVEL!")
       }
     }
+    
   }
 
   deleteLaser(laser) {
@@ -200,9 +202,7 @@ class Bullet {
   }
   moveRight() {
     this.widthPos = this.widthPos + 2;
-  }
-
-  
+  }  
 }
 
 // class Bonus{
@@ -230,6 +230,4 @@ document.addEventListener("keydown", function (event) {
   } else if (event.keyCode == 32) {
     spacePressed = true;
     gameOn.makeBullets();  }
-   
-  
 });
