@@ -10,8 +10,7 @@ class Game {
     this.meteorArr = [];
     this.meteorCounter = 0;
     this.bulletArr = [];
-    this.bulletCounter = 0;
-
+    // this.bulletCounter = 0;
   }
 
   start() {
@@ -19,31 +18,42 @@ class Game {
     this.character.domEl = this.createElement("character");
     this.drawElement(this.character);
 
-       
     //meteor creation and draw
 
     let intervalId = setInterval(() => {
-      if (this.meteorCounter === 30){
+      if (this.meteorCounter === 30) {
         this.meteor = new Meteor();
         this.meteor.domEl = this.createElement("meteor");
         this.drawElement(this.meteor);
         this.meteorArr.push(this.meteor);
         this.meteorCounter = Math.floor(Math.random() * 30);
-    }
-    this.meteorArr.forEach((element) => {
-      element.moveLeft();
-      this.drawElement(element);
-      this.detectCollision(element);
-      this.deleteMeteor(element);
-    });
-    this.meteorCounter++;}
-    ,60);
+      }
+      this.meteorArr.forEach((element) => {
+        element.moveLeft();
+        this.drawElement(element);
+        this.detectCollision(element);
+        this.deleteMeteor(element);
+        this.bulletArr.forEach((bullet) => {
+          this.shootingCollision(bullet,element);
+          console.log("hello");
+        })
+      });
+      this.meteorCounter++;
+      this.bulletArr.forEach((laser) => {
+        laser.moveRight();
+        this.drawElement(laser);
+        this.deleteLaser(laser)});
+    }, 60);
+    console.log(this.bulletArr.length);
 
     
+    // setInterval(
+    //   this.bulletArr.forEach((laser) => {
+    //     laser.widthPos++;
+    //   this.deleteLaser(laser);
+    // }),50);
   
   }
-
-  
 
   playerMove(dir) {
     if (dir === "up" && this.character.heightPos < 85) {
@@ -54,54 +64,54 @@ class Game {
       this.character.moveLeft();
     } else if (dir === "right" && this.character.widthPos < 90) {
       this.character.moveRight();
-    } 
+    }
     this.drawElement(this.character);
   }
 
-  // playerShoot(laser){
-  //   if (laser === "shoot" && this.character === true){
-  //     this.character.playerShoot();
-  //     console.log("shooting");
-  //   }
-  // }
-
-  detectCollision(meteor){
-    
-    if(this.character.widthPos < meteor.widthPos + meteor.width && this.character.widthPos 
-      + this.character.width > meteor.widthPos && this.character.heightPos < meteor.heightPos
-      + meteor.height && this.character.height + this.character.heightPos > meteor.heightPos)
-      {
-         this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
-        meteor.domEl.remove();
-        console.log(this.character);
-      console.log(meteor)
-       this.gameOver();
-      }
+  detectCollision(meteor) {
+    if (
+      this.character.widthPos < meteor.widthPos + meteor.width &&
+      this.character.widthPos + this.character.width > meteor.widthPos &&
+      this.character.heightPos < meteor.heightPos + meteor.height &&
+      this.character.height + this.character.heightPos > meteor.heightPos
+    ) {
+      this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
+      meteor.domEl.remove();
+      console.log(this.character);
+      console.log(meteor);
+      this.gameOver();
+    }
   }
 
-  deleteMeteor(meteor){
-    if(meteor.widthPos === 0){
-      this.meteorArr.splice(this.meteorArr.indexOf(meteor),1);
+  deleteMeteor(meteor) {
+    if (meteor.widthPos === 0) {
+      this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
       meteor.domEl.remove();
     }
   }
 
-  shootingCollision(){
-    if(this.bullet.widthPos < this.meteor.widthPos + this.meteor.width && this.bullet.widthPos +
-      this.bullet.width > this.meteor.widthPos && this.bullet.heightPos < this.meteor.heightPos +
-      laser-height && this.bullet.height + this.bullet.heightPos > this.meteor.heightPos){
-        this.bulletArr.splice(this.bulletArr.indexOf(this.meteor),1);
-        this.meteor.domEl.remove();
-        console.log(this.bullet);
-        console.log(this.meteor)
-      }
+  shootingCollision(bullet, meteor) {
+    
+    if (
+      bullet.widthPos < meteor.widthPos + meteor.width &&
+      bullet.widthPos + bullet.width > meteor.widthPos &&
+      bullet.heightPos < meteor.heightPos + meteor.height &&
+      bullet.height + bullet.heightPos > meteor.heightPos
+    ) {
+      this.bulletArr.splice(this.bulletArr.indexOf(bullet), 1);
+      this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
+      bullet.domEl.remove();
+      meteor.domEl.remove();
+      console.log(this.bullet);
+      console.log(this.meteor);
+    }
   }
 
-  deleteLaser(laser){
-    if(laser.widthPos === 100){
-      this.bulletArr.splice(this.bulletArr.indexOf(laser),1);
+  deleteLaser(laser) {
+    if (laser.widthPos === 100) {
+      this.bulletArr.splice(this.bulletArr.indexOf(laser), 1);
       laser.domEl.remove();
-  }
+    }
   }
 
   // removeMeteor(){
@@ -112,24 +122,30 @@ class Game {
     location.reload();
   }
 
-   //shooting creation and drawing
+  //shooting creation and drawing
 
-  makeBullets(){
-    const bullet = new Bullet();
+  makeBullets() {
+    const bullet = new Bullet(
+      this.character.widthPos,
+      this.character.heightPos
+    );
     this.bulletArr.push(bullet);
-      bullet.domEl = this.createElement("bullet");
-      this.drawElement(bullet);
-      console.log("makeBullets")
-      // bullet.playerShoot();
-      // this.drawElement(this.domEl);
+    bullet.domEl = this.createElement("bullet");
+    this.drawElement(bullet);
+    console.log("makeBullets");
+    // bullet.playerShoot();
+    // this.drawElement(this.domEl);
+    this.bulletArr.forEach((laser) => {
+      this.drawElement(laser);
+      laser.moveRight();
+      this.deleteLaser(laser);
+    });
+    //this.widthPos++;
+  }
 
-      this.bulletArr.forEach((laser) => {
-        laser.moveRight();
-        this.drawElement(laser);
-        this.deleteLaser(laser);
-      });
-    }
-    
+  moveBullets() {
+    // setInterval(bullet.moveRight(),50)
+  }
   // shootingCollision(){
   // }
 
@@ -151,14 +167,12 @@ class Game {
     element.domEl.style.width = element.width + "vw";
     element.domEl.style.height = element.height + "vh";
   }
- 
- 
 }
 
 class Character {
   constructor() {
-    this.heightPos = 50;
-    this.widthPos = 0;
+    this.heightPos = 50; // y axis
+    this.widthPos = 0; //x axis
     this.height = 16.5;
     this.width = 7.5;
     this.domEl = null;
@@ -187,39 +201,32 @@ class Character {
 
 class Meteor {
   constructor() {
-    this.height = 7 ;
+    this.height = 7;
     this.width = 5;
     this.widthPos = 100;
     this.heightPos = Math.floor(Math.random() * 95);
-    this.domEl = null;   // 
+    this.domEl = null; //
   }
 
-  moveLeft(){
-      this.widthPos--;
+  moveLeft() {
+    this.widthPos--;
   }
-  
 }
 
-class Bullet{
-  constructor(){
+class Bullet {
+  constructor(positionX, positionY) {
     this.height = 7;
     this.width = 7;
-    this.widthPos = 0;
-    this.heightPos = 50;
+    this.widthPos = positionX;
+    this.heightPos = positionY;
     this.domEl = null;
-    
   }
-    moveRight(){
-      this.widthPos++;
-    }  
-
-    playerShoot(){
-    if(spacePressed === true){
-       }
-     
-    }
+  moveRight() {
+    this.widthPos = this.widthPos + 2;
   }
 
+  playerShoot() {}
+}
 
 // class Bonus{
 //  constructor(){
@@ -228,8 +235,6 @@ class Bullet{
 
 const gameOn = new Game();
 gameOn.start();
-
-
 
 //movements player
 document.addEventListener("keydown", function (event) {
@@ -245,10 +250,7 @@ document.addEventListener("keydown", function (event) {
   } else if (event.keyCode == 87) {
     upPressed = true;
     gameOn.playerMove("up");
-  } else if (event.keyCode == 32){
+  } else if (event.keyCode == 32) {
     spacePressed = true;
-    gameOn.makeBullets();
-    console.log("shooting")
-  }
+    gameOn.makeBullets();  }
 });
-
