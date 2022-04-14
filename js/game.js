@@ -5,12 +5,10 @@ class Game {
     this.character = null;
     this.score = 0;
     //this.scoreCounter = scoreCounter;
-    //this.shoot = false;
     this.domEl = null;
     this.meteorArr = [];
     this.meteorCounter = 0;
     this.bulletArr = [];
-    // this.bulletCounter = 0;
   }
 
   start() {
@@ -35,7 +33,6 @@ class Game {
         this.deleteMeteor(element);
         this.bulletArr.forEach((bullet) => {
           this.shootingCollision(bullet,element);
-          console.log("hello");
         })
       });
       this.meteorCounter++;
@@ -44,14 +41,6 @@ class Game {
         this.drawElement(laser);
         this.deleteLaser(laser)});
     }, 60);
-    console.log(this.bulletArr.length);
-
-    
-    // setInterval(
-    //   this.bulletArr.forEach((laser) => {
-    //     laser.widthPos++;
-    //   this.deleteLaser(laser);
-    // }),50);
   
   }
 
@@ -77,8 +66,6 @@ class Game {
     ) {
       this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
       meteor.domEl.remove();
-      console.log(this.character);
-      console.log(meteor);
       this.gameOver();
     }
   }
@@ -91,7 +78,6 @@ class Game {
   }
 
   shootingCollision(bullet, meteor) {
-    
     if (
       bullet.widthPos < meteor.widthPos + meteor.width &&
       bullet.widthPos + bullet.width > meteor.widthPos &&
@@ -102,8 +88,11 @@ class Game {
       this.meteorArr.splice(this.meteorArr.indexOf(meteor), 1);
       bullet.domEl.remove();
       meteor.domEl.remove();
-      console.log(this.bullet);
-      console.log(this.meteor);
+      let point = document.getElementById("scoring");
+      point.innerHTML++;
+      if(point === 50){
+        alert("NICE, YOU CAN GO TO THE NEXT LEVEL!")
+      }
     }
   }
 
@@ -114,9 +103,6 @@ class Game {
     }
   }
 
-  // removeMeteor(){
-
-  // }
   gameOver() {
     alert("OH NO! YOU GOT DOWNED!!");
     location.reload();
@@ -132,22 +118,13 @@ class Game {
     this.bulletArr.push(bullet);
     bullet.domEl = this.createElement("bullet");
     this.drawElement(bullet);
-    console.log("makeBullets");
-    // bullet.playerShoot();
-    // this.drawElement(this.domEl);
-    this.bulletArr.forEach((laser) => {
+     this.bulletArr.forEach((laser) => {
       this.drawElement(laser);
       laser.moveRight();
       this.deleteLaser(laser);
     });
-    //this.widthPos++;
   }
 
-  moveBullets() {
-    // setInterval(bullet.moveRight(),50)
-  }
-  // shootingCollision(){
-  // }
 
   //GAME LOGICS
 
@@ -225,7 +202,7 @@ class Bullet {
     this.widthPos = this.widthPos + 2;
   }
 
-  playerShoot() {}
+  
 }
 
 // class Bonus{
@@ -253,4 +230,6 @@ document.addEventListener("keydown", function (event) {
   } else if (event.keyCode == 32) {
     spacePressed = true;
     gameOn.makeBullets();  }
+   
+  
 });

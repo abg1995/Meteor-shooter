@@ -31,3 +31,12 @@
     position: relative;
     /* margin-left: 20%; */
 }
+
+#score{
+font-family: Permanent Marker, serif;
+display: flex;    
+/* justify-content: end; */
+justify-content: space-evenly;
+color: crimson;
+font-size: 50px;
+}
