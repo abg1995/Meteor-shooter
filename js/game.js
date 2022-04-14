@@ -32,17 +32,16 @@ class Game {
         this.detectCollision(element);
         this.deleteMeteor(element);
         this.bulletArr.forEach((bullet) => {
-          this.shootingCollision(bullet,element);
-        })
+          this.shootingCollision(bullet, element);
+        });
       });
       this.meteorCounter++;
       this.bulletArr.forEach((laser) => {
         laser.moveRight();
         this.drawElement(laser);
-        this.deleteLaser(laser)});
+        this.deleteLaser(laser);
+      });
     }, 60);
-  
-    
   }
 
   playerMove(dir) {
@@ -58,6 +57,9 @@ class Game {
     this.drawElement(this.character);
   }
 
+    //collision methods
+
+    
   detectCollision(meteor) {
     if (
       this.character.widthPos < meteor.widthPos + meteor.width &&
@@ -90,13 +92,13 @@ class Game {
       bullet.domEl.remove();
       meteor.domEl.remove();
       let point = document.getElementById("scoring");
-      let newScore = parseInt(point.innerHTML)+10; console.log(point);
+      let newScore = parseInt(point.innerHTML) + 10;
+      console.log(point);
       point.innerHTML = newScore;
-      if (point.innerHTML == 150){
-        alert("NICE, YOU CAN GO TO THE NEXT LEVEL!")
+      if (point.innerHTML == 150) {
+        alert("NICE, YOU CAN GO TO THE NEXT LEVEL!");
       }
     }
-    
   }
 
   deleteLaser(laser) {
@@ -108,7 +110,7 @@ class Game {
 
   gameOver() {
     alert("OH NO! YOU GOT DOWNED!!");
-    location.href="";
+    location.href = "";
   }
 
   //shooting creation and drawing
@@ -121,13 +123,12 @@ class Game {
     this.bulletArr.push(bullet);
     bullet.domEl = this.createElement("bullet");
     this.drawElement(bullet);
-     this.bulletArr.forEach((laser) => {
+    this.bulletArr.forEach((laser) => {
       this.drawElement(laser);
       laser.moveRight();
       this.deleteLaser(laser);
     });
   }
-
 
   //GAME LOGICS
 
@@ -203,13 +204,8 @@ class Bullet {
   }
   moveRight() {
     this.widthPos = this.widthPos + 2;
-  }  
+  }
 }
-
-// class Bonus{
-//  constructor(){
-//     }
-// }
 
 const gameOn = new Game();
 gameOn.start();
@@ -230,5 +226,8 @@ document.addEventListener("keydown", function (event) {
     gameOn.playerMove("up");
   } else if (event.keyCode == 32) {
     spacePressed = true;
-    gameOn.makeBullets();  }
+    gameOn.makeBullets();
+  }
 });
+
+
