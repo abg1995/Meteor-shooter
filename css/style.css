@@ -1,7 +1,3 @@
-/* *{
-    padding: 0;
-    margin:0;
-} */
 
 .character{
     background-image: url(../img/avion.png);
@@ -39,4 +35,71 @@ display: flex;
 justify-content: space-evenly;
 color: crimson;
 font-size: 50px;
+}
+
+#start-page{
+    background-image: url(../img/sky.jpeg);
+    display: flex;
+    flex-direction: column;
+justify-content: center;
+align-items:center;
+}
+
+.title{
+    margin-top: 5%;
+    font-family: Permanent Marker, serif;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: coral;
+}
+
+
+
+.intro{
+    font-family: Permanent Marker, serif;
+    width: 50%;
+    margin-top: 1%;
+    text-align: center;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(172, 21, 21);
+    font-stretch: condensed;
+
+}
+
+
+.controles{
+width: 200px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items:center;
+}
+
+
+#loser{
+background-image: url(../img/sky.jpeg);
+
+}
+
+.loser-text{
+    margin-top: 10%;
+    margin-bottom: 15%;
+    font-family: Permanent Marker, serif;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(193, 16, 16);
+}
+
+#try-again{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }

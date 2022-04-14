@@ -90,8 +90,9 @@ class Game {
       bullet.domEl.remove();
       meteor.domEl.remove();
       let point = document.getElementById("scoring");
-      point.innerHTML++;
-      if (this.point === 50){
+      let newScore = parseInt(point.innerHTML)+10; console.log(point);
+      point.innerHTML = newScore;
+      if (point.innerHTML == 50){
         alert("NICE, YOU CAN GO TO THE NEXT LEVEL!")
       }
     }
@@ -107,7 +108,7 @@ class Game {
 
   gameOver() {
     alert("OH NO! YOU GOT DOWNED!!");
-    location.reload();
+    location.href="";
   }
 
   //shooting creation and drawing
@@ -157,7 +158,7 @@ class Character {
     this.domEl = null;
   }
   moveUp() {
-    if (this.heightPos < 98) {
+    if (this.heightPos < 100) {
       this.heightPos += 4;
     }
   }
@@ -172,7 +173,7 @@ class Character {
     }
   }
   moveRight() {
-    if (this.widthPos < 92) {
+    if (this.widthPos < 98) {
       this.widthPos += 4;
     }
   }
@@ -180,8 +181,8 @@ class Character {
 
 class Meteor {
   constructor() {
-    this.height = 7;
-    this.width = 5;
+    this.height = 10;
+    this.width = 7;
     this.widthPos = 100;
     this.heightPos = Math.floor(Math.random() * 95);
     this.domEl = null; //
