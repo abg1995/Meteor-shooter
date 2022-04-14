@@ -92,7 +92,7 @@ class Game {
       let point = document.getElementById("scoring");
       let newScore = parseInt(point.innerHTML)+10; console.log(point);
       point.innerHTML = newScore;
-      if (point.innerHTML == 50){
+      if (point.innerHTML == 150){
         alert("NICE, YOU CAN GO TO THE NEXT LEVEL!")
       }
     }
@@ -100,7 +100,7 @@ class Game {
   }
 
   deleteLaser(laser) {
-    if (laser.widthPos === 100) {
+    if (laser.widthPos === 150) {
       this.bulletArr.splice(this.bulletArr.indexOf(laser), 1);
       laser.domEl.remove();
     }

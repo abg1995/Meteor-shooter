@@ -37,6 +37,8 @@ color: crimson;
 font-size: 50px;
 }
 
+/* start  */
+
 #start-page{
     background-image: url(../img/sky.jpeg);
     display: flex;
@@ -74,16 +76,21 @@ align-items:center;
 
 .controles{
 width: 200px;
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items:center;
 }
 
 
 #loser{
 background-image: url(../img/sky.jpeg);
+display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* loser  */
 
+#loser-pg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .loser-text{
@@ -91,9 +98,6 @@ background-image: url(../img/sky.jpeg);
     margin-bottom: 15%;
     font-family: Permanent Marker, serif;
     font-size: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: rgb(193, 16, 16);
 }
 
@@ -102,4 +106,8 @@ background-image: url(../img/sky.jpeg);
     justify-content: center;
     align-items: center;
 
+}
+
+#boton{
+    margin-left: 30%;
 }
