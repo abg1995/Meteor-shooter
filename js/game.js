@@ -110,7 +110,7 @@ class Game {
 
   gameOver() {
     alert("OH NO! YOU GOT DOWNED!!");
-    location.href = "";
+    location.href = '../html/loser.html';
   }
 
   //shooting creation and drawing
